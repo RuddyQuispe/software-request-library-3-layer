@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 
-export default class PLibro {
+export default class PresentacionLibro {
     public router: Router;
 
     constructor() {

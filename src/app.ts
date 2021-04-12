@@ -1,28 +1,33 @@
 /**
- * Import libraries
+ * Importancion de librerias
  */
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import expressHandlebars from 'express-handlebars';
 import methodOverride from 'method-override';
-import PLibro from './presentacion/libroPresentacion/Plibro';
+import { Conexion } from './datos/Conexion';
 
 /**
- * Import Routes
+ * Importacion de Vistas (rutas)
  */
-
+import PLibro from './presentacion/libroPresentacion/PresentacionLibro';
 
 /**
- * Class Principal Main "App"
+ * Clase Principal "App"
  */
 export class App {
 
+    /**
+     * Atributos
+     */
     private app: Application;
 
     /**
-     * initialize framework express, its midlewares and routes
-     * @param port port for initialize server
+     * Inicializa el servidor http (express), consiguraciones, midlewares y rutas
+     * - Guarda en una variable global el puerto a iniciae el servidor HTTP
+     * - ejecuta los metodos settings, middlewares y routes, que estan implementados en esta clase
+     * @param port puerto para inicializar el servidor HTTP
      */
     constructor(port?: number | string) {
         this.app = express();
@@ -33,7 +38,12 @@ export class App {
     }
 
     /**
-     * Initialize project config (settings)
+     * Inicializa las consiguraciones del servidor HTTP (settings)
+     * configuraciones:
+     * - direccion de las vistas (hbs y clases presentacion)
+     * - direccion de las particiones de las vistas (hbs)
+     * - habilitacion del envio de datos por la url
+     * - habilitacion de methodOverride para las peticiones HTTP.PUT y HTTP.DELETE
      */
     private setting(): void {
         this.app.set("views", path.join(__dirname, "presentacion"));
@@ -53,10 +63,13 @@ export class App {
         this.app.set('view engine', '.hbs');                             // using handlebars
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(methodOverride('_method'));                      // you can to send html methods as put, delete
+        let conexion = Conexion.getInstancia();
     }
 
     /**
-     * Middlewares process run foreach request http
+     * Se ejecuta los Middlewares antes de proceder con una peticion HTTP
+     * - habilitacion de Morgan (descripcion de las peticiones HTTP en la consola)
+     * - habilitacion de ingreso de informacion por JSON
      */
     private middlewares(): void {
         this.app.use(morgan('dev'));
@@ -64,19 +77,20 @@ export class App {
     }
 
     /**
-     * write routes of the software for get request http
+     * Funcion para la creacion de las instancias de la capa presentacion
+     * Casos de Uso a instanciar:
+     * - Libros
      */
     private routes(): void {
-        //    this.app.use('/api_soul', authRouter);
         let presentationBook: PLibro = new PLibro();
         this.app.use('/api_soul', presentationBook.router);
     }
 
     /**
-     * initialize server rest-api on port this.get('PORT')
+     * Metodo para la ejecucion del servidor HTTP atraves del puerto anteriormente guardado
      */
     public async listen(): Promise<void> {
         await this.app.listen(this.app.get('PORT'));
-        console.log(`Server on port ${this.app.get('PORT')}`);
+        console.log("\x1b[46m", "\x1b[30m", `Server on port ${this.app.get('PORT')}`, "\x1b[0m");
     }
 }
