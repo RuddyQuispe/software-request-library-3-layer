@@ -1,7 +1,7 @@
 /**
  * Importacion de librerias
  */
-import { Pool, QueryArrayResult } from 'pg';
+import { Pool, QueryResult } from 'pg';
 import { config as dotenv } from 'dotenv';
 
 /**
@@ -57,15 +57,10 @@ export class Conexion {
     /**
      * Metodo para poder manipular la BD desde este software, unico medio para la manipulacion de la BD
      * @param consultaSQL consulta SQL para la manipulacion a la BD a traves de este objeto y este metodo
-     * @returns QueryArrayResult si obtiene un resultado; caso contrario undefined si ocurrio un error en la ejecucion de la consulta
+     * @returns QueryResult si obtiene un resultado; caso contrario undefined si ocurrio un error en la ejecucion de la consulta
      */
-    public async ejecutarConsultaSQL(consultaSQL: string): Promise<QueryArrayResult | undefined> {
-        try {
-            let resultado: QueryArrayResult = await this.session.query(consultaSQL);
-            return resultado;
-        } catch (error) {
-            console.log("\x1b[30m", "\x1b[41m", `Error en consulta ${consultaSQL}, ${error}`, "\x1b[0m");
-            return undefined;
-        }
+    public async ejecutarConsultaSQL(consultaSQL: string): Promise<QueryResult> {
+        let resultado: QueryResult = await this.session.query(consultaSQL);
+        return resultado;
     }
 }

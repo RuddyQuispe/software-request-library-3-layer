@@ -1,4 +1,13 @@
 /**
+ * Materia: Arquitectura de Software
+ * Carrera: Ing. Informatica
+ * UAGRM - FICCT
+ * @author: Ruddy Bryan Quispe Mamani 
+ * @version: 0.0.1
+ * @since: 12-04-2021
+ */
+
+/**
  * Importancion de librerias
  */
 import express, { Application } from 'express';
@@ -6,12 +15,12 @@ import morgan from 'morgan';
 import path from 'path';
 import expressHandlebars from 'express-handlebars';
 import methodOverride from 'method-override';
-import { Conexion } from './datos/Conexion';
+import { Conexion } from './database/Conexion';
 
 /**
  * Importacion de Vistas (rutas)
  */
-import PLibro from './presentacion/libroPresentacion/PresentacionLibro';
+import { CategoriaPresentacion } from './presentacion/categoria/CategoriaPresentacion';
 
 /**
  * Clase Principal "App"
@@ -30,8 +39,8 @@ export class App {
      * @param port puerto para inicializar el servidor HTTP
      */
     constructor(port?: number | string) {
-        this.app = express();
-        this.app.set('PORT', process.env.PORT || port || 3000);
+        this.app = express();   // iniciando el servidor web
+        this.app.set('PORT', process.env.PORT || port || 3000); // guardando el puerto en una variable global
         this.setting();
         this.middlewares();
         this.routes();
@@ -82,8 +91,8 @@ export class App {
      * - Libros
      */
     private routes(): void {
-        let presentationBook: PLibro = new PLibro();
-        this.app.use('/api_soul', presentationBook.router);
+        let presentationBook: CategoriaPresentacion = new CategoriaPresentacion();
+        this.app.use('/gestionar_categoria', presentationBook.router);
     }
 
     /**

@@ -1,0 +1,46 @@
+<div class="card mx-auto col-lg-10 bg-dark mb-3 text-light">
+    <div class="card-header">
+        Gestionar Categoria
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+                <h5 class="card-title">Registra una Categoría</h5>
+                <form action="/gestionar_categoria" method="post">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">descripción</span>
+                        </div>
+                        <input type="text" class="form-control" required minlength="4" name="descripcion"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <input type="submit" class="btn btn-outline-primary" value="Registrar Categoria">
+                </form>
+            </div>
+            <div class="col-md-7">
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each lista_categorias}}
+                        <tr>
+                            <th scope="row">{{id}}</th>
+                            <td>{{descripcion}}</td>
+                            <td>
+                                <a href="/gestionar_categoria/{{id}}" type="button"
+                                    class="btn btn-outline-primary btn-sm"><small>editar</small>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
