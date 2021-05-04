@@ -22,6 +22,7 @@ import { Conexion } from './database/Conexion';
  */
 import { CategoriaPresentacion } from './presentacion/categoria/CategoriaPresentacion';
 import { LibroPresentacion } from './presentacion/libro/LibroPresentacion';
+import { UsuarioLectorPresentacion } from './presentacion/usuario_lector/UsuarioLectorPresentacion';
 
 /**
  * Clase Principal "App"
@@ -96,6 +97,8 @@ export class App {
         this.app.use('/gestionar_categoria', presentacionCategoria.router);
         let presentacionLibro: LibroPresentacion = new LibroPresentacion();
         this.app.use('/gestionar_libro', presentacionLibro.router);
+        let presentacionUsuarioLector: UsuarioLectorPresentacion = new UsuarioLectorPresentacion();
+        this.app.use('/gestionar_usuario_lector', presentacionUsuarioLector.router);
         this.app.get('/', async (req, res) => {
             res.render('dashboard');
         })
