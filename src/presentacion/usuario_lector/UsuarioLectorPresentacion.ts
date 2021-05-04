@@ -34,7 +34,7 @@ export class UsuarioLectorPresentacion {
     public async obtenerVistaUsuarioLector(request: Request, response: Response): Promise<void> {
         let listarDeUsuariosLectores: Array<{ ci: number, nombre: string, apellidos: string, email: string, telefono: string }> = await this.usuarioLectorNegocio.obtenerListaDeUsuariosLectores();
         response.render('usuario_lector/gestionar_usuario_lector', {
-            lista_usuarios_lectores: listarDeUsuariosLectores
+            lista_usuarios: listarDeUsuariosLectores
         });
     }
 
