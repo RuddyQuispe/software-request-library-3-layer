@@ -1,4 +1,12 @@
 /**
+ * Materia: Arquitectura de Software
+ * UAGRM - FICCT
+ * @author: Ruddy Bryan Quispe Mamani 
+ * @version: 0.0.1
+ * @since: 14-04-2021
+ */
+
+/**
  * Importacion de librerias
  */
 import { Pool, QueryResult } from 'pg';

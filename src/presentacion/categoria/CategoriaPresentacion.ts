@@ -7,7 +7,7 @@
  * @since: 14-04-2021
  */
 
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router } from '../../config';
 import { CategoriaNegocio } from '../../negocio/CategoriaNegocio';
 
 export class CategoriaPresentacion {
@@ -85,6 +85,9 @@ export class CategoriaPresentacion {
         }
     }
 
+    /**
+     * metodo privado para cargar las rutas que disponen en los metodos HTTP
+     */
     private createRoutes() {
         this.router.route('/').get(async (req: Request, res: Response) => this.obtenerPresentacionCategoria(req, res));
         this.router.route('/').post(async (req: Request, res: Response) => this.registrarCategoria(req, res));

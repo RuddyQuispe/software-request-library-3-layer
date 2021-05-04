@@ -1,0 +1,74 @@
+<div class="card mx-auto col-lg-6 bg-dark mb-3 text-light">
+    <div class="card-header">
+        Editar Libro # {{codigo}}
+    </div>
+    <form action="/gestionar_libro/modificar/{{codigo}}?_method=PUT" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Autor</span>
+                </div>
+                <input type="text" class="form-control" required minlength="4" name="autor" placeholder="Juancito Pinto"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{autor}}">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Titulo del Libro</span>
+                </div>
+                <input type="text" class="form-control" required minlength="4" name="titulo"
+                    placeholder="Lo que el agua se llevó" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" value="{{titulo}}">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Descripción</span>
+                </div>
+                <textarea name="descripcion" class="form-control" placeholder="Resumen del libro" cols="39"
+                    rows="3">{{descripcion}}</textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Edicion del Libro</span>
+                </div>
+                <input type="text" class="form-control" required minlength="3" name="edicion"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    placeholder="ej. 1ra, 3ra, 5ta, 8va, 12va" value="{{edicion}}">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Cantidad Disponible</span>
+                </div>
+                <input type="number" class="form-control" required min="1" name="stock"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="1"
+                    value="1" min="1" value="stock">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Categoria: {{id_categoria}}</span>
+                </div>
+                <select class="form-select form-select-lg" value="{{id_categoria}}" size="3"
+                    aria-label="size 3 select example" name="id_categoria">
+                    <option value="0">Selecciona una Categoria</option>
+                    {{#each lista_categorias}}
+                    <option id="{{id}}" value="{{id}}">{{descripcion}} {{id_categoria}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-outline-success">Guardar Cambios</button>
+                </div>
+                <div class="col-md-6">
+                    <a href="/gestionar_libro" type="button" class="btn btn-outline-danger">Cancelar Cambios</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    // obtiene el elemento de categoria seleccionado y adiciona el selected para su seleccion
+    document.getElementById("{{id_categoria}}").setAttribute('selected', '');
+</script>

@@ -1,3 +1,12 @@
+/**
+ * Materia: Arquitectura de Software
+ * Carrera: Ing. Informatica
+ * UAGRM - FICCT
+ * @author: Ruddy Bryan Quispe Mamani 
+ * @version: 0.0.1
+ * @since: 12-04-2021
+ */
+
 import { App } from './app';
 
 /**

@@ -30,13 +30,7 @@ export class CategoriaNegocio {
      */
     public async obtenerListaCategoria(): Promise<Array<{ id: number, descripcion: string }>> {
         let listaCategorias: Array<{ id: number, descripcion: string }> | undefined = await this.categoriaDatos.obtenerListaCategoria();
-        if (listaCategorias) {
-            // se obtuvo la lista de categorias
-            return listaCategorias;
-        } else {
-            // no hay categorias, o hubo un error al obtener
-            return [];
-        }
+        return listaCategorias ?? [];
     }
 
     /**

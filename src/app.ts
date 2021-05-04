@@ -4,13 +4,13 @@
  * UAGRM - FICCT
  * @author: Ruddy Bryan Quispe Mamani 
  * @version: 0.0.1
- * @since: 12-04-2021
+ * @since: 03-05-2021
  */
 
 /**
  * Importancion de librerias
  */
-import express, { Application } from 'express';
+import { serverHTTP, Application } from './config';
 import morgan from 'morgan';
 import path from 'path';
 import expressHandlebars from 'express-handlebars';
@@ -21,6 +21,7 @@ import { Conexion } from './database/Conexion';
  * Importacion de Vistas (rutas)
  */
 import { CategoriaPresentacion } from './presentacion/categoria/CategoriaPresentacion';
+import { LibroPresentacion } from './presentacion/libro/LibroPresentacion';
 
 /**
  * Clase Principal "App"
@@ -39,7 +40,7 @@ export class App {
      * @param port puerto para inicializar el servidor HTTP
      */
     constructor(port?: number | string) {
-        this.app = express();   // iniciando el servidor web
+        this.app = serverHTTP();   // iniciando el servidor web
         this.app.set('PORT', process.env.PORT || port || 3000); // guardando el puerto en una variable global
         this.setting();
         this.middlewares();
@@ -70,7 +71,7 @@ export class App {
         });
         this.app.engine('.hbs', hbs.engine);
         this.app.set('view engine', '.hbs');                             // using handlebars
-        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(serverHTTP.urlencoded({ extended: true }));
         this.app.use(methodOverride('_method'));                      // you can to send html methods as put, delete
         let conexion = Conexion.getInstancia();
     }
@@ -82,7 +83,7 @@ export class App {
      */
     private middlewares(): void {
         this.app.use(morgan('dev'));
-        this.app.use(express.json());
+        this.app.use(serverHTTP.json());
     }
 
     /**
@@ -91,8 +92,13 @@ export class App {
      * - Libros
      */
     private routes(): void {
-        let presentationBook: CategoriaPresentacion = new CategoriaPresentacion();
-        this.app.use('/gestionar_categoria', presentationBook.router);
+        let presentacionCategoria: CategoriaPresentacion = new CategoriaPresentacion();
+        this.app.use('/gestionar_categoria', presentacionCategoria.router);
+        let presentacionLibro: LibroPresentacion = new LibroPresentacion();
+        this.app.use('/gestionar_libro', presentacionLibro.router);
+        this.app.get('/', async (req, res) => {
+            res.render('dashboard');
+        })
     }
 
     /**

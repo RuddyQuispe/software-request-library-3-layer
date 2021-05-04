@@ -1,0 +1,283 @@
+<div class="card mx-auto bg-dark mb-3 text-light">
+    <div class="card-header">
+        Gestionar Libro
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="card-title">Registrar Libro</h5>
+                <form id="formulario-registrar-libro">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Autor</span>
+                        </div>
+                        <input type="text" id="autor" class="form-control" required minlength="4" name="autor"
+                            placeholder="Juancito Pinto" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Titulo del Libro</span>
+                        </div>
+                        <input type="text" id="titulo" class="form-control" required minlength="4" name="titulo"
+                            placeholder="Lo que el agua se llevó" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Descripción</span>
+                        </div>
+                        <textarea name="descripcion" id="descripcion" class="form-control"
+                            placeholder="Resumen del libro" cols="39" rows="3"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Edicion del Libro</span>
+                        </div>
+                        <input type="text" id="edicion" class="form-control" required minlength="3" name="edicion"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                            placeholder="ej. 1ra, 3ra, 5ta, 8va, 12va">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Cantidad Disponible</span>
+                        </div>
+                        <input type="number" id="stock" class="form-control" required min="1" name="stock"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                            placeholder="1" value="1" min="1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Categoria</span>
+                        </div>
+                        <select class="form-select form-select-lg" id="categoria" size="3"
+                            aria-label="size 3 select example" name="id_categoria">
+                            <option selected disabled>Selecciona una categoria</option>
+                            {{#each lista_categorias}}
+                            <option value="{{id}}">{{descripcion}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#exampleModal2" onclick="registrarLibro()">
+                        Guardar Nuevo Libro
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h5 class="card-title">Lista de Libros</h5>
+                <table class="table table-striped table-dark table-responsive">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Autor</th>
+                            <th>Titulo</th>
+                            <th>Edición</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Categoria</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each lista_libro}}
+                        <tr>
+                            {{#if estado}}
+                            <th class="bg-success">{{codigo}}</th>
+                            {{else}}
+                            <th class="bg-danger">{{codigo}}</th>
+                            {{/if}}
+                            <th>{{autor}}</th>
+                            <th>{{titulo}}</th>
+                            <th>{{edicion}}</th>
+                            <th>{{stock}}</th>
+                            <th>
+                                {{#if estado}}
+
+                                <button type="button" class="btn btn-outline-danger btn-sm btn-xs" data-toggle="modal"
+                                    data-target="#exampleModal1"
+                                    onclick="habilitarInhabilitarLibro({{codigo}},{{estado}})">
+                                    inhabilitar
+                                </button>
+
+                                {{else}}
+                                <button type="button" class="btn btn-outline-success btn-sm btn-xs" data-toggle="modal"
+                                    data-target="#exampleModal1"
+                                    onclick="habilitarInhabilitarLibro({{codigo}},{{estado}})">
+                                    habilitar
+                                </button>
+                                {{/if}}
+                            </th>
+                            <th>{{descripcion_categoria}}</th>
+                            <td>
+                                <a href="/gestionar_libro/{{codigo}}" type="button"
+                                    class="btn btn-outline-warning btn-sm btn-xs"><small><span class="material-icons">
+                                            edit
+                                        </span></small>
+                                </a>
+                                <button class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                    data-target="#exampleModal" onclick="eliminarLibro({{codigo}})"><span
+                                        class="material-icons">
+                                        delete
+                                    </span></button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Button trigger modal -->
+            <!-- Modal ELIMINAR -->
+            <div class="modal fade transform-8" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="recipient-name">Esta seguro de eliminar el libro? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()"
+                                data-dismiss="modal">Eliminar
+                                Libro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal HABILITAR/INHABILITAR -->
+            <div class="modal fade transform-8" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="recipient-name">Esta seguro de habilitar/inhabilitar el libro? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" onclick="confirmarHabilitarInhabilitarLibro()"
+                                ondblclick="confirmarHabilitarInhabilitarLibro()" data-dismiss="modal">Modificar
+                                Libro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal REGISTRAR -->
+            <div class="modal fade transform-8" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="recipient-name">Esta seguro de registrar el libro? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" onclick="confirmarRegistrarLibro()"
+                                ondblclick="confirmarRegistrarLibro()" data-dismiss="modal">Registrar Libro
+                                Libro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // datos generales
+    var data = {
+        codigo_libro: 0,
+        estado: false,
+        titulo: undefined,
+        autor: undefined,
+        descripcion: undefined,
+        categoria: undefined,
+        stock: undefined,
+        edicion: undefined
+    };
+
+    function registrarLibro() {
+        data.titulo = document.getElementById("titulo").value;
+        data.autor = document.getElementById("autor").value;
+        data.descripcion = document.getElementById("descripcion").value;
+        data.categoria = document.getElementById("categoria").value;
+        data.stock = document.getElementById("stock").value;
+        data.edicion = document.getElementById("edicion").value;
+        console.log(data.titulo, data.autor, data.descripcion, data.categoria, data.stock, data.edicion);
+    }
+
+    function confirmarRegistrarLibro() {
+        if (data.titulo && data.autor && data.descripcion && data.categoria && data.stock && data.edicion) {
+            let { titulo, autor, descripcion, categoria, stock, edicion } = data;
+            axios.post('/gestionar_libro', {
+                autor,
+                titulo,
+                descripcion,
+                id_categoria: categoria,
+                stock,
+                edicion
+            }).then(function (response) {
+                window.location.reload();
+            }).catch(function (error) {
+                alert("Hubo un error al registrar el libro");
+            });
+        } else {
+            alert("Datos obtenidos no correctos")
+        }
+    }
+
+    function eliminarLibro(codigoLibro) {
+        data.codigo_libro = codigoLibro;
+        console.log("confirmar", codigoLibro);
+    }
+
+    function confirmarEliminacion() {
+        if (data.codigo_libro === undefined || data.codigo_libro === 0) {
+            alert("no puedo eliminar este libro");
+        } else {
+            axios.delete('/gestionar_libro/eliminar/' + data.codigo_libro).then(function (response) {
+                //document.getElementById(data.codigo_libro).remove();
+                window.location.reload();
+            }).catch(function (error) {
+                alert("Hubo un error al eliminar el libro");
+            });
+        }
+    }
+
+    function habilitarInhabilitarLibro(codigoLibro, estado) {
+        data.codigo_libro = codigoLibro;
+        data.estado = estado;
+        console.log(codigoLibro, estado);
+    }
+
+    function confirmarHabilitarInhabilitarLibro() {
+        console.log(`/gestionar_libro/habilitar_inhabilitar/${data.codigo_libro}`);
+        if (data.codigo_libro > 0 && data.estado !== undefined) {
+            axios.put('/gestionar_libro/habilitar_inhabilitar/' + data.codigo_libro).then(function (response) {
+                window.location.reload();
+            }).catch(function (error) {
+                alert("Hubo un error al habilitar/inhabilitar el libro" + data.codigo_libro);
+            });
+        } else {
+            alert("Hubo un error, intente de nuevo");
+        }
+    }
+
+</script>
