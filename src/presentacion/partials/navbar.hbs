@@ -1,46 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6e/UAGRM_Logo_Minimalista_Preciso.png" alt="logo"
-            style="width: 40px; height: 30px"> </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container">
+        <a class="navbar-brand" href="#"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/6e/UAGRM_Logo_Minimalista_Preciso.png" alt="logo"
+                style="width: 40px; height: 30px"> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Gestión de Usuarios
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Gestionar Lector</a>
-                    <a class="dropdown-item" href="#">Gestionar Trabajador</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Gestión de Libros
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Gestionar Libro</a>
-                    <a class="dropdown-item" href="/gestionar_categoria">Gestionar Categoria</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Gestión de Solicitudes de Prestamo de Libros
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Gestionar Solicitud de Prestamo de Libro</a>
-                </div>
-            </li>
-        </ul>
-        <div class="my-2 my-lg-0">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestión de Usuarios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/gestionar_usuario_lector">Gestionar Lector</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestión de Libros
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/gestionar_libro">Gestionar Libro</a>
+                        <a class="dropdown-item" href="/gestionar_categoria">Gestionar Categoria</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestión de Solicitudes de Prestamo de Libros
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Gestionar Solicitud de Prestamo de Libro</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+            </div>
         </div>
     </div>
 </nav>
